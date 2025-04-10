@@ -5,7 +5,11 @@ import (
 	"fmt"
 )
 
-func commandMapf(cfg *config) error {
+func commandMapf(cfg *config, args ...string) error {
+	if len(args) > 0 {
+		fmt.Println("Warning: 'map' command doesn't take any arguments. Ignoring extra input.")
+	}
+
 	locationsResp, err := cfg.pokeapiClient.ListLocations(cfg.nextLocationsURL)
 	if err != nil {
 		return err
@@ -20,7 +24,11 @@ func commandMapf(cfg *config) error {
 	return nil
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args ...string) error {
+	if len(args) > 0 {
+		fmt.Println("Warning: 'mapb' command doesn't take any arguments. Ignoring extra input.")
+	}
+
 	if cfg.prevLocationsURL == nil {
 		return errors.New("you're on the first page")
 	}
